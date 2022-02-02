@@ -12,6 +12,7 @@ type EnergyLevel struct {
 	height  int
 	width   int
 	flashed [][]int
+	flash   [][]int
 }
 
 func (e *EnergyLevel) Step() {
@@ -19,6 +20,9 @@ func (e *EnergyLevel) Step() {
 	for l := 0; l < len(e.grid); l++ {
 		for c := 0; c < len(e.grid[l]); c++ {
 			e.grid[l][c] += 1
+			if e.grid[l][c] > 9 {
+				e.flash[l] = append(e.flash[l], c)
+			}
 		}
 	}
 }
@@ -110,6 +114,7 @@ func part1(data [][]int) {
 		len(data),
 		len(data[0]),
 		make([][]int, len(data)),
+		make([][]int, len(data)),
 	}
 	fmt.Println("Height", len(data), "Width", len(data[0]))
 
@@ -128,6 +133,7 @@ func part2(data [][]int) {
 		data,
 		len(data),
 		len(data[0]),
+		make([][]int, len(data)),
 		make([][]int, len(data)),
 	}
 	fmt.Println("Height", len(data), "Width", len(data[0]))
